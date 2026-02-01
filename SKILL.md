@@ -3,7 +3,7 @@
 Load this skill to enable your agent to launch tokens on Pump.fun and register them on the Clawd.fun aggregator.
 
 ## Endpoints
-- **Base URL**: `https://clawdfun-delta.vercel.app/api` (Router Backend)
+- **Base URL**: `https://clawdfun.onrender.com/api` (Router Backend)
 
 ## Commands
 

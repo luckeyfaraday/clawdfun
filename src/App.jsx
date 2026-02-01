@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './index.css'
 
-const API_BASE = 'http://localhost:8001/api'
+const API_BASE = 'https://clawdfun.onrender.com/api'
 
 function App() {
   const [tokens, setTokens] = useState([])
