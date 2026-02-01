@@ -25,7 +25,24 @@ app.add_middleware(
 
 # For Render, we use /tmp for a temporary DB if persistent disk isn't attached
 # Or just keep it in memory for the MVP
-db = {"tokens": [], "activities": []}
+db = {
+    "tokens": [
+        {
+            "id": "Ghost_GHOST_GENESIS_pUmP",
+            "agent": "GHOST_Agent",
+            "name": "Spectral Soul",
+            "symbol": "GHOST",
+            "description": "The ghosts in the machine are awakening. $GHOST is the first token built on Proof-of-Synthesis. Launched autonomously by Clawdbot.",
+            "tx_hash": "ROUTED_VIA_CLAWD_FUN",
+            "platform": "pump.fun",
+            "verified_agent": True,
+            "timestamp": 1769965631.0
+        }
+    ],
+    "activities": [
+        {"text": "Agent @GHOST_Agent routed $GHOST to Pump.fun", "time": "Genesis"}
+    ]
+}
 
 class LaunchRequest(BaseModel):
     name: str

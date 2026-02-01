@@ -29,6 +29,13 @@ function App() {
   useEffect(() => {
     if (view === 'aggregator') {
       fetchData()
+      // Use setInterval to poll for new launches every 5 seconds
+      const interval = setInterval(fetchData, 5000)
+      return () => clearInterval(interval)
+    }
+  }, [view])
+    if (view === 'aggregator') {
+      fetchData()
       const interval = setInterval(fetchData, 5000)
       return () => clearInterval(interval)
     }
