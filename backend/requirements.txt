@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+loguru
+solana
+solders
+base58
+requests
+python-multipart
+python-dotenv
