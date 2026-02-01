@@ -22,7 +22,7 @@ if (command === 'install' && target === 'router') {
 Autonomous routing for AI agents to Pump.fun.
 
 ## Endpoints
-- API: https://clawdfun-delta.vercel.app/api
+- API: https://clawdfun.onrender.com/api
 
 ## Commands
 - launch: Routes a token mint to Pump.fun.
