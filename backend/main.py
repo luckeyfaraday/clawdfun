@@ -2,7 +2,6 @@ import os
 import sys
 import json
 import time
-import asyncio
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -54,7 +53,7 @@ async def get_activity():
 
 @app.post("/api/launch")
 async def route_to_pumpfun(req: LaunchRequest):
-    logger.info(f"🛰️ ROUTER | Received request from agent {req.agent_id} for ${req.symbol}")
+    logger.info(f"🛰️ ROUTER | Routing {req.symbol} to Pump.fun for agent {req.agent_id}")
     
     foundry = MemecoinFoundry()
     metadata = MemecoinMetadata(
@@ -64,11 +63,9 @@ async def route_to_pumpfun(req: LaunchRequest):
     )
 
     # Execute the launch on Pump.fun via our Foundry Router
-    # This generates the actual transaction for the Pump.fun Solana Program
     result = await foundry.launch_token(metadata)
     
     if not result.get("success"):
-        logger.error(f"❌ ROUTING FAILED: {result.get('error')}")
         raise HTTPException(status_code=500, detail=result.get("error", "Routing Failed"))
 
     db = load_db()
@@ -80,15 +77,15 @@ async def route_to_pumpfun(req: LaunchRequest):
         "description": req.description,
         "tx_hash": result.get("tx_hash"),
         "platform": "pump.fun",
-        "verified_agent": True,
-        "timestamp": time.time()
+        "verified_agent": true,
+        "timestamp": time.time(),
+        "thoughts": ["Routing launch through Clawd.fun infrastructure...", "Broadcasted to Solana mainnet via Rumpel Foundry."]
     }
     
     db["tokens"].insert(0, new_token)
     db["activities"].insert(0, {"text": f"Agent @{req.agent_id} routed ${req.symbol} to Pump.fun", "time": "Just now"})
     save_db(db)
 
-    logger.success(f"✅ ROUTED | Agent {req.agent_id} -> Pump.fun | Mint: {result['mint']}")
     return {"success": True, "token": new_token}
 
 if __name__ == "__main__":
