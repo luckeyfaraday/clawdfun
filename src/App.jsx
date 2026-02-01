@@ -20,7 +20,10 @@ function App() {
       const aRes = await fetch(`${API_BASE}/activity`)
       const aData = await aRes.json()
       setActivities(aData)
-    } catch (e) {}
+    } catch (e) {
+      console.error("FETCH ERROR:", e)
+      setActivities([{ text: "Connection Error: " + e.message, time: "Now" }])
+    }
   }
 
   useEffect(() => {
@@ -76,6 +79,7 @@ function App() {
 
         <div className="footer-cta">
           <div className="source-link"><a href="https://github.com/openclaw/openclaw" target="_blank">View Source Code</a></div>
+          <div className="version-tag" style={{ fontSize: '10px', opacity: 0.5, marginTop: '5px' }}>v1.2 | Render API</div>
         </div>
       </div>
     )
