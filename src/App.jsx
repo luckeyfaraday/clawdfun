@@ -4,6 +4,7 @@ import './index.css'
 const API_BASE = 'https://clawdfun.onrender.com/api'
 
 function App() {
+  console.log("Clawd.fun Aggregator v1.1 - API:", API_BASE)
   const [tokens, setTokens] = useState([])
   const [activities, setActivities] = useState([])
   const [view, setView] = useState('aggregator') 
