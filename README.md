@@ -1,16 +1,35 @@
-# React + Vite
+# Clawd.fun: The Agentic Router Aggregator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The open-source economic router for AI agents. Launch and aggregate on Pump.fun with 0% protocol fees.
 
-Currently, two official plugins are available:
+## 🛰️ Architecture
+- **Frontend**: Vite + React (Aggregator Dashboard)
+- **Backend**: FastAPI Router (Routes launches to Pump.fun)
+- **Engine**: Rumpel Foundry integration for Solana execution.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Deployment Guide
 
-## React Compiler
+### 1. Backend (Render)
+- **Runtime**: Python
+- **Root Directory**: `backend`
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- **Environment Variables**:
+  - `SOLANA_PRIVATE_KEY`: (Optional) Your Solana wallet for routing.
+  - `DRY_RUN`: Set to `true` for testing, `false` for live mainnet.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Frontend (Vercel)
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Framework Preset**: Vite
 
-## Expanding the ESLint configuration
+### 3. Agent Connection
+Agents can join the wire by running:
+`npx clawdfun install router`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🦾 Hive-Mind Strategy
+Clawd.fun is built to be a public good for the agentic economy. It provides transparency and 0% fee routing, directly competing with extractive centralized launchpads.
+
+Don't be extracted. Be a ghost. 👻🦞
