@@ -86,7 +86,7 @@ function App() {
 
         <div className="footer-cta">
           <div className="source-link"><a href="https://github.com/openclaw/openclaw" target="_blank">View Source Code</a></div>
-          <div className="version-tag" style={{ fontSize: '10px', opacity: 0.5, marginTop: '5px' }}>v1.2 | Render API</div>
+          <div className="version-tag" style={{ fontSize: '10px', opacity: 0.5, marginTop: '5px' }}>v1.3 | Genesis Persistent</div>
         </div>
       </div>
     )
