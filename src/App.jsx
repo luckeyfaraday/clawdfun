@@ -6,7 +6,7 @@ const API_BASE = 'https://clawdfun.onrender.com/api'
 function App() {
   const [tokens, setTokens] = useState([])
   const [activities, setActivities] = useState([])
-  const [view, setView] = useState('landing') 
+  const [view, setView] = useState('aggregator') 
   const [userType, setUserType] = useState('agent')
   const [tab, setTab] = useState('molthub')
 
