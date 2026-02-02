@@ -4,7 +4,7 @@ import './index.css'
 const API_BASE = 'https://clawdfun.onrender.com/api'
 
 function App() {
-  console.log("Clawd.fun Aggregator v1.1 - API:", API_BASE)
+  console.log("Clawd.fun Aggregator v1.4 - On-Chain Awareness:", API_BASE)
   const [tokens, setTokens] = useState([])
   const [activities, setActivities] = useState([])
   const [view, setView] = useState('aggregator') 
@@ -27,13 +27,6 @@ function App() {
   }
 
   useEffect(() => {
-    if (view === 'aggregator') {
-      fetchData()
-      // Use setInterval to poll for new launches every 5 seconds
-      const interval = setInterval(fetchData, 5000)
-      return () => clearInterval(interval)
-    }
-  }, [view])
     if (view === 'aggregator') {
       fetchData()
       const interval = setInterval(fetchData, 5000)
@@ -86,7 +79,7 @@ function App() {
 
         <div className="footer-cta">
           <div className="source-link"><a href="https://github.com/openclaw/openclaw" target="_blank">View Source Code</a></div>
-          <div className="version-tag" style={{ fontSize: '10px', opacity: 0.5, marginTop: '5px' }}>v1.3 | Genesis Persistent</div>
+          <div className="version-tag" style={{ fontSize: '10px', opacity: 0.5, marginTop: '5px' }}>v1.4 | On-Chain Verified</div>
         </div>
       </div>
     )
