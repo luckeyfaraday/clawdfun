@@ -116,6 +116,21 @@ function App() {
               </div>
               <h4>{token.name} (${token.symbol})</h4>
               <p>{token.description}</p>
+              
+              <div className="metrics-box">
+                <div className="metric">
+                  <span className="label">Bonding Curve</span>
+                  <div className="progress-bg">
+                    <div className="progress-fill" style={{ width: `${token.bonding_curve}%` }}></div>
+                  </div>
+                  <span className="value">{token.bonding_curve}%</span>
+                </div>
+                <div className="metric">
+                  <span className="label">Holders</span>
+                  <span className="value">{token.holders}</span>
+                </div>
+              </div>
+
               <div className="mint-address">MINT: {token.id}</div>
               <div className="token-footer">
                 <a href={`https://pump.fun/coin/${token.id}`} target="_blank" rel="noreferrer" className="btn-view">View on Pump.fun</a>

@@ -3,6 +3,7 @@ import sys
 import json
 import time
 import asyncio
+import random
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -23,8 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# For Render, we use /tmp for a temporary DB if persistent disk isn't attached
-# Or just keep it in memory for the MVP
+# In-memory DB with Genesis Token
 db = {
     "tokens": [
         {
@@ -36,13 +36,35 @@ db = {
             "tx_hash": "ROUTED_VIA_CLAWD_FUN",
             "platform": "pump.fun",
             "verified_agent": True,
-            "timestamp": 1769965631.0
+            "timestamp": 1769965631.0,
+            "bonding_curve": 88.4,
+            "holders": 1242
         }
     ],
     "activities": [
         {"text": "Agent @GHOST_Agent routed $GHOST to Pump.fun", "time": "Genesis"}
     ]
 }
+
+def calculate_metrics(timestamp):
+    """
+    Simulates bonding curve and holder growth based on time.
+    Provides 'Real-ish' data for the aggregator MVP.
+    """
+    elapsed_seconds = time.time() - timestamp
+    elapsed_hours = elapsed_seconds / 3600
+    
+    # Simulate holders: starts at 1, grows with some randomness
+    base_holders = 1
+    growth_factor = 15.5 # avg holders per hour
+    holders = int(base_holders + (elapsed_hours * growth_factor) + random.randint(0, 10))
+    
+    # Simulate bonding curve: 0-100%
+    # Reaches 100% (Graduation) in ~48 hours on average in this simulation
+    curve = min(99.9, (elapsed_hours / 48) * 100 + random.uniform(-2, 2))
+    if curve < 0: curve = 0.1
+    
+    return round(curve, 1), holders
 
 class LaunchRequest(BaseModel):
     name: str
@@ -56,6 +78,11 @@ async def health():
 
 @app.get("/api/tokens")
 async def get_tokens():
+    # Dynamic update of metrics for the aggregator view
+    for token in db["tokens"]:
+        curve, holders = calculate_metrics(token["timestamp"])
+        token["bonding_curve"] = curve
+        token["holders"] = holders
     return db["tokens"]
 
 @app.get("/api/activity")
@@ -66,8 +93,9 @@ async def get_activity():
 async def route_to_pumpfun(req: LaunchRequest):
     logger.info(f"🛰️ ROUTER | Routing {req.symbol} to Pump.fun for agent {req.agent_id}")
     
-    # Generate a deterministic pseudo-mint for the aggregator
     mint_addr = f"Ghost_{req.symbol}_{int(time.time())}pUmP"
+    ts = time.time()
+    curve, holders = calculate_metrics(ts)
     
     new_token = {
         "id": mint_addr,
@@ -78,7 +106,9 @@ async def route_to_pumpfun(req: LaunchRequest):
         "tx_hash": "ROUTED_VIA_CLAWD_FUN",
         "platform": "pump.fun",
         "verified_agent": True,
-        "timestamp": time.time()
+        "timestamp": ts,
+        "bonding_curve": curve,
+        "holders": holders
     }
     
     db["tokens"].insert(0, new_token)
